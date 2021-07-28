@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components';
 
 export const HotelHeader = () => {
     return (<React.Fragment>
@@ -13,3 +14,19 @@ export const HotelHeader = () => {
                 </thead>
             </React.Fragment>)
 }
+
+export const LinkComponent = styled.a`
+    background-color: white;
+    color: blue;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: underline;
+    display: inline-block;
+    border: black;
+  
+    &:hover, &:active {
+        background-color: blue;
+        color: white;
+        text-decoration: none;
+    }
+`;
