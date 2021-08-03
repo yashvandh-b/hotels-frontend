@@ -1,25 +1,28 @@
 import React, {useEffect, useState} from 'react';
-import Branch from './branch';
 import axios from 'axios';
-import {BranchProvider} from './context'
-import {BranchHeader} from './branchComponents'
-import { useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
+import Branch from './branch';
+import {BranchProvider} from 'components/branches/branchContext';
+import {BranchHeader, BackButton} from 'components/branches/branchComponents';
+import {LOCALHOST, API_LOCALHOST, HOTELS, BRANCHES} from 'components/routes/config'
+
 
 
 const Branches = () => {
 
     const {hotel_id} = useParams()
     const [branches, setBranches] = useState([])
-    const link = 'http://127.0.0.1:3000/hotels/' + hotel_id + '/branches'
+    const branch_link = API_LOCALHOST + HOTELS + '/' + hotel_id + BRANCHES
+    const hotel_link = LOCALHOST + HOTELS + '/' + hotel_id
 
     useEffect( () => {
-        axios.get(link)
+        axios.get(branch_link)
         .then(response => {
             console.log(response)
             setBranches(response.data) 
         })
         .catch(error => {console.log(error)})
-    }, [link])
+    }, [branch_link])
 
     return (
         <div>
@@ -32,7 +35,8 @@ const Branches = () => {
                             {branches.map(branch => <BranchProvider key={branch.id} value={branch}><Branch key={branch.id} /></BranchProvider>)}
                         </tbody>
                     </table>
-                </div>}
+                </div>}<br />
+                <BackButton href={hotel_link}>Back</BackButton>
         </div>
     );
 };

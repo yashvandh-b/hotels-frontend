@@ -1,5 +1,5 @@
 import React from 'react'
-import * as UI from './navbarElements';
+import * as UI from 'components/navbar/navbarElements';
 
 const Navbar = () => {
   return (
