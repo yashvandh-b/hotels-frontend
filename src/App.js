@@ -8,7 +8,7 @@ import AddHotel from 'components/hotels/new';
 import HotelsWrapper from 'components/hotels';
 import SignUp from 'components/user/new';
 import Signin from 'components/session/signin';
-import ShowHotel from 'components/hotels/showHotel';
+import ShowHotelWrapper from 'components/hotels/ShowHotelWrapper';
 import Branches from 'components/branches';
 import AddBranch from 'components/branches/new';
 import EditHotel from 'components/hotels/edit';
@@ -21,7 +21,7 @@ function App() {
         <Route path='/hotels/:hotel_id/branches/new'><AddBranch /></Route>
         <Route path='/hotels/:hotel_id/branches'><Branches /></Route>
         <Route path='/hotels/:hotel_id/edit'><EditHotel /></Route>
-        <Route path='/hotels/:hotel_id'><ShowHotel /></Route>
+        <Route path='/hotels/:hotel_id'><ShowHotelWrapper /></Route>
         <Route path='/hotels'><HotelsWrapper /></Route>
         <Route path='/hotel/new'><AddHotel /></Route>
         <Route path='/about'> <About /> </Route>

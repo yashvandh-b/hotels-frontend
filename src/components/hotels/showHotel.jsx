@@ -1,43 +1,36 @@
-import React, {useEffect, useState} from 'react'
-import {useParams, useLocation} from 'react-router-dom'
-import axios from 'axios'
+import React, {useEffect} from 'react'
+import {useParams} from 'react-router-dom'
 import {AllButton, BackButton, AddButton, EditButton} from 'components/hotels/hotelComponents'
-import {API_LOCALHOST, LOCALHOST, HOTELS, BRANCHES, NEW, EDIT } from 'components/routes/config'
+import {useHotel, fetchHotel} from 'components/hotels/hotelContext'
+import {editHotelLink, hotelsLink, newHotelBranchLink, branchLink} from 'components/data-services/links'
 
 
 const ShowHotel = () => {
 
+    const [state, dispatch] = useHotel()
     const { hotel_id } = useParams();
-    const [hotel, setHotel] = useState({})
-    const show_hotel_link = API_LOCALHOST + HOTELS + '/' + hotel_id
-    const hotels_link = LOCALHOST + HOTELS
-    const branch_link = hotels_link + '/' + hotel_id + BRANCHES
-    const new_hotel_branch_link = branch_link + NEW
-    const edit_hotel_link = hotels_link + '/' + hotel_id + EDIT
-    const location = useLocation();
 
-    useEffect( () => {
-        axios.get(show_hotel_link)
-        .then(response => {
-            console.log(response)
-            console.log(location.pathname)
-            setHotel(response.data) 
-        })
-        .catch(error => {console.log(error)})
-    }, [show_hotel_link, location.pathname])
+    useEffect(() => {
+        console.log(hotel_id, "ShowHotel")
+        fetchHotel(dispatch, hotel_id);
+    }, [dispatch, hotel_id]);
+
+    console.log(state.hotel, "ShowHotel")
+
+    const hotel = state.hotel
+
 
     return (
         <div>
             <h1>{hotel.name}</h1>
             <p> {hotel.phone} | {hotel.email}</p><br />
-            <EditButton href={edit_hotel_link}>Edit</EditButton>
-            <BackButton href={hotels_link}>Back</BackButton><br /><br />
-            <AddButton href={new_hotel_branch_link}> Add Branch </AddButton><br /><br />
-            <AllButton href={branch_link}>All Branches</AllButton><br /><br />
+            <EditButton href={ editHotelLink(hotel_id) }>Edit</EditButton>
+            <BackButton href={ hotelsLink() }>Back</BackButton><br /><br />
+            <AddButton href={ newHotelBranchLink(hotel_id) }> Add Branch </AddButton><br /><br />
+            <AllButton href={ branchLink(hotel_id) }>All Branches</AllButton><br /><br />
 
-        </div>
-        
-    )
+        </div>  
+    );
 }
 
-export default ShowHotel
+export default ShowHotel; 

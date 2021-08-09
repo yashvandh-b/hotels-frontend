@@ -4,7 +4,8 @@ import {useParams} from 'react-router-dom';
 import Branch from './branch';
 import {BranchProvider} from 'components/branches/branchContext';
 import {BranchHeader, BackButton} from 'components/branches/branchComponents';
-import {LOCALHOST, API_LOCALHOST, HOTELS, BRANCHES} from 'components/routes/config'
+import {branchesAPILink} from 'components/data-services/api-links'
+import {hotelsLink} from 'components/data-services/links'
 
 
 
@@ -12,17 +13,15 @@ const Branches = () => {
 
     const {hotel_id} = useParams()
     const [branches, setBranches] = useState([])
-    const branch_link = API_LOCALHOST + HOTELS + '/' + hotel_id + BRANCHES
-    const hotel_link = LOCALHOST + HOTELS + '/' + hotel_id
 
     useEffect( () => {
-        axios.get(branch_link)
+        axios.get(branchesAPILink(hotel_id))
         .then(response => {
             console.log(response)
             setBranches(response.data) 
         })
         .catch(error => {console.log(error)})
-    }, [branch_link])
+    }, [hotel_id])
 
     return (
         <div>
@@ -36,7 +35,7 @@ const Branches = () => {
                         </tbody>
                     </table>
                 </div>}<br />
-                <BackButton href={hotel_link}>Back</BackButton>
+                <BackButton href={hotelsLink()}>Back</BackButton>
         </div>
     );
 };

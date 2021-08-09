@@ -1,18 +1,19 @@
-import React, {useContext} from 'react'
-import {HotelContext} from 'components/hotels/hotelContext'
+import React from 'react'
 import {LinkButton, DeleteButton} from 'components/hotels/hotelComponents'
 import axios from 'axios'
-import { API_LOCALHOST, HOTELS } from 'components/routes/config'
+import { HOTELS } from 'components/routes/config'
+import {hotelAPILink} from 'components/data-services/api-links'
 
-const Hotel = () => {
-    const hotel = useContext(HotelContext)
+const Hotel = (props) => {
+
+    const hotel = props.hotel
+    console.log(hotel, "Hotel")
     const hotel_id = parseInt(hotel.id)
     const hotel_path = HOTELS + '/' + hotel_id
-    const delete_hotel_link = API_LOCALHOST + HOTELS + '/' + hotel_id
 
     const DeleteHotel = (e) => {
         console.log(hotel)
-        axios.delete(delete_hotel_link)
+        axios.delete(hotelAPILink)
         .then( (response) => {
             console.log(response)
             window.alert("deleted")

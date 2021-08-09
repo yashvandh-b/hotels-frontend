@@ -2,15 +2,14 @@ import React, {useContext} from 'react'
 import { BranchContext } from 'components/branches/branchContext'
 import { DeleteButton } from 'components/branches/branchComponents'
 import axios from 'axios'
-import { API_LOCALHOST, BRANCHES } from 'components/routes/config'
+import {deleteBranchLink} from 'components/data-services/api-links';
 
 const Branch = () => {
     const branch = useContext(BranchContext)
-    const delete_branch_link = API_LOCALHOST + BRANCHES + '/' + branch.id
 
     const DeleteBranch = (e) => {
         console.log(branch)
-        axios.delete(delete_branch_link)
+        axios.delete(deleteBranchLink(branch.id))
         .then( (response) => {
             console.log(response)
         })

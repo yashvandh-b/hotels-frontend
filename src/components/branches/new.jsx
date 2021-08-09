@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from 'axios'
 import {SubmitButton, BackButton} from 'components/branches/branchComponents'
-import {LOCALHOST, API_LOCALHOST, HOTELS, BRANCHES} from 'components/routes/config'
+import { HOTELS, BRANCHES } from 'components/routes/config'
 import {useParams, useHistory} from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import {hotelLink} from 'components/data-services/links'
+import {newHotelBranchAPILink} from 'components/data-services/api-links'
 
 const AddBranch = () => {
 
@@ -11,8 +13,6 @@ const AddBranch = () => {
     const {hotel_id} = useParams()
     const [branch, setBranch] = useState({name: '', location: '', manager_name: '', manager_phone: '', hotel_id: parseInt(hotel_id)})
     const inputRef = useRef(null);
-    const hotel_link = LOCALHOST + HOTELS + '/' + hotel_id
-    const new_hotel_branch_link = API_LOCALHOST + HOTELS + '/' + hotel_id + BRANCHES
 
     useEffect( () => {
         console.log(branch)
@@ -25,7 +25,7 @@ const AddBranch = () => {
     const onAddBranch = (e) => {
         e.preventDefault()
         console.log(branch)
-        axios.post(new_hotel_branch_link, branch)
+        axios.post(newHotelBranchAPILink(hotel_id), branch)
         .then(response => {
             console.log(response)
             const branches_path = HOTELS + '/' + hotel_id + BRANCHES
@@ -58,7 +58,7 @@ const AddBranch = () => {
                     <input name="manager_phone" type="text" value={branch.manager_phone} onChange={e => {setBranch({...branch, manager_phone: parseInt(e.target.value)})}}/>
                 </label><br /><br />
                 <SubmitButton type="button" onClick={onAddBranch}> Create Branch </SubmitButton><br /><br />
-                <BackButton href={hotel_link}>Back</BackButton><br /><br />
+                <BackButton href={hotelLink(hotel_id)}>Back</BackButton><br /><br />
             </form>
 
             <Formik
@@ -117,7 +117,7 @@ const AddBranch = () => {
                         <SubmitButton type="submit" disabled={isSubmitting}>
                             Create Branch
                         </SubmitButton><br /><br />
-                        <BackButton href={hotel_link}>Back</BackButton><br /><br />
+                        <BackButton href={hotelLink(hotel_id)}>Back</BackButton><br /><br />
                     </Form>
                 )}
             </Formik>

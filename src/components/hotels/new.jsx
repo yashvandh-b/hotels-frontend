@@ -1,17 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from 'axios'
 import {SubmitButton, BackButton} from 'components/hotels/hotelComponents'
-import {LOCALHOST, API_LOCALHOST, HOTELS} from 'components/routes/config'
 import {useHistory} from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import {hotelsAPILink} from 'components/data-services/api-links';
+import {hotelsLink} from 'components/data-services/links';
 
 const AddHotel = () => {
 
     const history = useHistory()
     const [hotel, setHotel] = useState({name: '', phone: '', email: '', user_id: 1})
     const inputRef = useRef(null);
-    const hotels_link = LOCALHOST + HOTELS
-    const api_hotels_link = API_LOCALHOST + HOTELS
 
     useEffect( () => {
         console.log(hotel.name, hotel.phone, hotel.email)
@@ -26,7 +25,7 @@ const AddHotel = () => {
         e.preventDefault()
         console.log(hotel)
 
-            axios.post(api_hotels_link, hotel)
+            axios.post(hotelsAPILink, hotel)
             .then((response) => {
                 console.log(response);
                 const hotel_path = '/hotels/' + response.data.id
@@ -52,7 +51,7 @@ const AddHotel = () => {
                     <input name="email" type="text" value={hotel.email} onChange={e => {setHotel({...hotel, email: e.target.value})}} />
                 </label><br /><br />
                 <SubmitButton type="button" onClick={onAddHotel}> Create Hotel </SubmitButton><br /><br />
-                <BackButton href={hotels_link}>Back</BackButton><br /><br />
+                <BackButton href={hotelsLink()}>Back</BackButton><br /><br />
             </form>
             <Formik
                 initialValues={{ name: '', phone: '', email: '' }}
@@ -104,7 +103,7 @@ const AddHotel = () => {
                         <SubmitButton type="submit" disabled={isSubmitting}>
                             Create Hotel
                         </SubmitButton><br /><br />
-                        <BackButton href={hotels_link}>Back</BackButton><br /><br />
+                        <BackButton href={hotelsLink()}>Back</BackButton><br /><br />
                     </Form>
                 )}
             </Formik>
