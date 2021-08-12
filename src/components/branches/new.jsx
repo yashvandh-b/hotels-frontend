@@ -6,6 +6,7 @@ import {useParams, useHistory} from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import {hotelLink} from 'components/data-services/links'
 import {newHotelBranchAPILink} from 'components/data-services/api-links'
+import {notify} from 'components/notification' 
 
 const AddBranch = () => {
 
@@ -30,8 +31,12 @@ const AddBranch = () => {
             console.log(response)
             const branches_path = HOTELS + '/' + hotel_id + BRANCHES
             history.push(branches_path)
+            notify("Branch Added Successfully");
         })
-        .catch(errors => {console.log(errors)})
+        .catch(errors => {
+            console.log(errors);
+            notify("errors");
+        })
     }
 
     return (

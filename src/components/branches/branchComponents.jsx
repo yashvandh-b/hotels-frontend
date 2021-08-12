@@ -18,36 +18,41 @@ export const BranchHeader = () => {
 }
 
 export const BackButton = styled.a`
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
     padding: 10px 20px;
     text-align: center;
     display: inline-block;
-    border: black;
+    border: 1px solid black;
     text-decoration: none;
     border-radius: 10px;
   
     &:hover, &:active {
-        color: red;
+        color: white;
+        background-color: black;
     }
 `;
 
 export const SubmitButton = styled.button`
-    background-color: green;
-    color: white;
+    background-color: white;
+    color: green;
     padding: 10px 20px;
     text-align: center;
     display: inline-block;
-    border: black;
+    border: green 1px solid;
     text-decoration: none;
     border-radius: 10px;
 
     &:hover, &:active {
-        color: black;
+        color: white;
+        background-color: green;
     }
 `;
 
 export const DeleteButton = styled(SubmitButton)`
-    background-color: red;
-    color: white;
+    background-color: white;
+    color: red;
+    &:hover, &:active {
+        background-color: red;
+    }
 `;

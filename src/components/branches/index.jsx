@@ -5,7 +5,7 @@ import Branch from './branch';
 import {BranchProvider} from 'components/branches/branchContext';
 import {BranchHeader, BackButton} from 'components/branches/branchComponents';
 import {branchesAPILink} from 'components/data-services/api-links'
-import {hotelsLink} from 'components/data-services/links'
+import {hotelLink} from 'components/data-services/links'
 
 
 
@@ -35,7 +35,7 @@ const Branches = () => {
                         </tbody>
                     </table>
                 </div>}<br />
-                <BackButton href={hotelsLink()}>Back</BackButton>
+                <BackButton href={hotelLink(hotel_id)}>Back</BackButton>
         </div>
     );
 };

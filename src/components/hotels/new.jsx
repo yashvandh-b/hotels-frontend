@@ -5,6 +5,7 @@ import {useHistory} from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import {hotelsAPILink} from 'components/data-services/api-links';
 import {hotelsLink} from 'components/data-services/links';
+import {notify} from 'components/notification';
 
 const AddHotel = () => {
 
@@ -25,13 +26,17 @@ const AddHotel = () => {
         e.preventDefault()
         console.log(hotel)
 
-            axios.post(hotelsAPILink, hotel)
+            axios.post(hotelsAPILink(), hotel)
             .then((response) => {
                 console.log(response);
                 const hotel_path = '/hotels/' + response.data.id
                 history.push(hotel_path)
+                notify("Hotel Added Successfully");
             })
-            .catch((errors) => {console.log(errors)})
+            .catch((errors) => {
+                console.log(errors);
+                notify("error");
+            })
     }
 
     return (

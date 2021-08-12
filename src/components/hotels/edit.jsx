@@ -3,6 +3,7 @@ import axios from 'axios'
 import {SubmitButton, BackButton} from 'components/hotels/hotelComponents'
 import {LOCALHOST, API_LOCALHOST, HOTELS} from 'components/routes/config'
 import {useHistory, useParams} from 'react-router-dom'
+import {notify} from 'components/notification'
 
 const EditHotel = () => {
 
@@ -34,8 +35,9 @@ const EditHotel = () => {
         axios.put(api_edit_hotel_link, hotel)
         .then((response) => {
             console.log(response);
-            const hotel_path = '/hotels/' + response.data.id
-            history.push(hotel_path)
+            notify("Hotel Edit Successful")
+            const hotel_path = '/hotels/' + response.data.id;
+            history.push(hotel_path);
         })
         .catch((errors) => {console.log(errors)})
     }

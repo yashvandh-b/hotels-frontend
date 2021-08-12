@@ -3,6 +3,8 @@ import {LinkButton, DeleteButton} from 'components/hotels/hotelComponents'
 import axios from 'axios'
 import { HOTELS } from 'components/routes/config'
 import {hotelAPILink} from 'components/data-services/api-links'
+import {notify} from 'components/notification'
+import {useHotel, fetchHotelsList} from 'components/hotels/hotelContext'
 
 const Hotel = (props) => {
 
@@ -10,17 +12,22 @@ const Hotel = (props) => {
     console.log(hotel, "Hotel")
     const hotel_id = parseInt(hotel.id)
     const hotel_path = HOTELS + '/' + hotel_id
+    const [state, dispatch] = useHotel()
 
-    const DeleteHotel = (e) => {
+    const deleteHotel = (e) => {
         console.log(hotel)
-        axios.delete(hotelAPILink)
+        axios.delete(hotelAPILink(hotel_id))
         .then( (response) => {
             console.log(response)
-            window.alert("deleted")
+            //const [currentPage, setCurrentPage] = useState(1);
+            //const [postsPerPage] = useState(5);
+            const page = 1;
+            fetchHotelsList(dispatch, page);
         })
         .catch( (errors) => {
             console.log(errors)
         })
+        notify("Hotel Deleted :)");
     }
 
     return (
@@ -31,7 +38,7 @@ const Hotel = (props) => {
                 <td>{hotel.phone}</td>
                 <td>{hotel.email}</td>
                 <td>{hotel.user_id}</td>
-                <td><DeleteButton onClick={DeleteHotel} >Delete</DeleteButton> </td>
+                <td><DeleteButton onClick={deleteHotel} >Delete</DeleteButton> </td>
             </tr>
         </React.Fragment>
     )

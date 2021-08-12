@@ -1,7 +1,7 @@
 import {API_LOCALHOST, HOTELS, BRANCHES} from 'components/routes/config'
 
-export const hotelsAPILink = () => {
-    return API_LOCALHOST + HOTELS;
+export const hotelsAPILink = (page = 1, items = 5) => {
+    return API_LOCALHOST + HOTELS + '?' + 'page=' + page + '&items=' + items ;
 }
 
 export const hotelAPILink = (hotel_id) => {

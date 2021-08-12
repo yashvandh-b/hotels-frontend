@@ -5,10 +5,8 @@ import {hotelsAPILink, hotelAPILink} from 'components/data-services/api-links'
 
 const HotelStateContext = createContext();
 const HotelDispatchContext = createContext();
-const GET_HOTEL = 'GET_HOTEL'
 
-const HotelsStateContext = createContext();
-const HotelsDispatchContext = createContext();
+const GET_HOTEL = 'GET_HOTEL'
 const GET_HOTELS = 'GET_HOTELS'
 const SET_ITEMS_LOADING = 'SET_ITEMS_LOADING'
 
@@ -40,7 +38,7 @@ function setItemsLoading(isLoading) {
     };
 };
 
-function hotelsReducer(state=initialState, action) {
+function hotelReducer(state=initialState, action) {
     switch (action.type) {
         case GET_HOTELS:
             return {
@@ -62,13 +60,13 @@ function hotelsReducer(state=initialState, action) {
     }
 }
 
-export const fetchHotelsList = (dispatch) => {
+export const fetchHotelsList = (dispatch, page, items) => {
     
     //const hotels = getJSON(hotelsLink())
     //console.log(hotels, "HotelContext")
     //dispatch(getHotels(hotels))
     dispatch(setItemsLoading(true));
-    axios.get(hotelsAPILink())
+    axios.get(hotelsAPILink(page, items))
     .then(response => {
         //console.log(response)
         dispatch(getHotels(response.data))
@@ -92,22 +90,9 @@ export const fetchHotel = (dispatch, hotel_id) => {
     dispatch(setItemsLoading(false));
 }
 
-const HotelsProvider = (props) => {
-
-    const [state, dispatch] = useReducer(hotelsReducer, initialState)
-    //console.log(props, "HotelProvider")
-    return (
-        <HotelsStateContext.Provider value={state}>
-            <HotelsDispatchContext.Provider value={dispatch}>
-                {props.children}
-            </HotelsDispatchContext.Provider>
-        </HotelsStateContext.Provider>
-    );
-}
-
 const HotelProvider = (props) => {
 
-    const [state, dispatch] = useReducer(hotelsReducer, initialState)
+    const [state, dispatch] = useReducer(hotelReducer, initialState)
 
     return (
         <HotelStateContext.Provider value={state}>
@@ -116,22 +101,6 @@ const HotelProvider = (props) => {
             </HotelDispatchContext.Provider>
         </HotelStateContext.Provider>
     );
-}
-
-function useHotelsState() {
-    const context = useContext(HotelsStateContext);
-    if (context === undefined) {
-        throw new Error('useHotelsState must be used within a HotelsProvider');
-    }
-    return context;
-}
-
-function useHotelsDispatch() {
-    const context = useContext(HotelsDispatchContext);
-    if (context === undefined) {
-        throw new Error('useHotelsDispatch must be used within a HotelsProvider');
-    }
-    return context;
 }
 
 function useHotelState() {
@@ -150,15 +119,10 @@ function useHotelDispatch() {
     return context;
 }
 
-function useHotels() {
-    return [useHotelsState(), useHotelsDispatch()]
-}
-
 function useHotel() {
     return [useHotelState(), useHotelDispatch()]
 }
 
-export {useHotels, useHotelsDispatch, useHotelsState, HotelsProvider}
 export {useHotel, useHotelDispatch, useHotelState, HotelProvider}
 
 

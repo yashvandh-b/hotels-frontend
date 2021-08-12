@@ -12,11 +12,13 @@ import ShowHotelWrapper from 'components/hotels/ShowHotelWrapper';
 import Branches from 'components/branches';
 import AddBranch from 'components/branches/new';
 import EditHotel from 'components/hotels/edit';
+import Notification from 'components/notification'
 
 function App() {
   return (
    <Router>
       <Navbar />
+      <Notification />
       <Switch>
         <Route path='/hotels/:hotel_id/branches/new'><AddBranch /></Route>
         <Route path='/hotels/:hotel_id/branches'><Branches /></Route>

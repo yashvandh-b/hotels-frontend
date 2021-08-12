@@ -1,31 +1,38 @@
-import React, {useEffect, useState} from 'react';
-import {HotelProvider, useHotels, fetchHotelsList} from 'components/hotels/hotelContext'
-import {Pagination} from 'components/pagination/Pagination'
+import React, {useEffect} from 'react';
+import {useHotel, fetchHotelsList} from 'components/hotels/hotelContext'
 import {AddButton} from 'components/hotels/hotelComponents'
 import {newHotelLink} from 'components/data-services/links'
 import Hotel from 'components/hotels/hotel';
+import {useParams} from 'react-router-dom';
 
 const Hotels = () => {
 
-    const [state, dispatch] = useHotels()
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(5);
+    const [state, dispatch] = useHotel()
+    //const [currentPage, setCurrentPage] = useState(1);
+    //const [postsPerPage] = useState(5);
+
+    console.log(useParams(), "Use Params")
+
+    const page = 1;
+    const items = 10;
 
     useEffect(() => {
-        fetchHotelsList(dispatch);
-    }, [dispatch]);
+        fetchHotelsList(dispatch, page, items);
+    }, [dispatch, page, items]);
 
     const hotels = state.hotels || [];
+    /*     
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const current_hotels = hotels.slice(indexOfFirstPost, indexOfLastPost);
 
-    const paginate = pageNumber => setCurrentPage(pageNumber);
+    const paginate = pageNumber => setCurrentPage(pageNumber); 
+    */
 
     //console.log(state, "Hotels");
     return (
         <div>
-            {!current_hotels.length ? <p>No Hotels</p>  : 
+            {!hotels.length ? <p>No Hotels</p>  : 
                 <div>
                     <h1>Available Hotels</h1><br />
                     <AddButton href={newHotelLink()}> Add Hotel </AddButton><br /><br />
@@ -43,20 +50,14 @@ const Hotels = () => {
                         </thead>
                         
                         <tbody>
-                            {current_hotels.map(hotel => (
-                                <HotelProvider key={hotel.id}>
+                            {hotels.map(hotel => (
                                     <Hotel key={hotel.id} hotel={hotel} />
-                                </HotelProvider>
                             ))}
                         </tbody>
 
                     </table>
                     <br />
-                    <Pagination
-                        postsPerPage={postsPerPage}
-                        totalPosts={hotels.length}
-                        paginate={paginate}
-                    />
+                        {/*   <Pagination postsPerPage={postsPerPage} totalPosts={hotels.length} paginate={paginate} /> */}
                 </div>}
         </div>
     );

@@ -1,12 +1,12 @@
 import React from 'react';
-import {HotelsProvider} from 'components/hotels/hotelContext'
+import {HotelProvider} from 'components/hotels/hotelContext'
 import Hotels from 'components/hotels/Hotels'
 
 const HotelsWrapper = () => {
     return (
-        <HotelsProvider>
+        <HotelProvider>
             <Hotels />
-        </HotelsProvider>
+        </HotelProvider>
     )
 }
 
