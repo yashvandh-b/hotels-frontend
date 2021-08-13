@@ -1,5 +1,17 @@
 import styled from 'styled-components';
 
+
+export const DisplayPage = styled.div`
+    background-color: white;
+    color: #2b2eff;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    border: 1px solid #2b2eff;
+    text-decoration: none;
+    border-radius: 10px;
+`;
+
 export const LinkButton = styled.a`
     background-color: white;
     color: blue;
@@ -9,6 +21,7 @@ export const LinkButton = styled.a`
     border: 1px solid blue;
     text-decoration: none;
     border-radius: 10px;
+    cursor: pointer;
   
     &:hover, &:active {
         color: white;
@@ -30,6 +43,28 @@ export const BackButton = styled(LinkButton)`
     &:hover, &:active {
         color: white;
         background-color: black;
+    }
+`;
+
+export const PreviousButton = styled(LinkButton)`
+    background-color: white;
+    color: #2b2eff;
+    border: 1px solid #2b2eff;
+
+    &:hover, &:active {
+        color: white;
+        background-color: #2b2eff;
+    }
+`;
+
+export const NextButton = styled(LinkButton)`
+    background-color: white;
+    color: #2b2eff;
+    border: 1px solid #2b2eff;
+
+    &:hover, &:active {
+        color: white;
+        background-color: #2b2eff;
     }
 `;
 

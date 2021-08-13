@@ -21,8 +21,8 @@ const Hotel = (props) => {
             console.log(response)
             //const [currentPage, setCurrentPage] = useState(1);
             //const [postsPerPage] = useState(5);
-            const page = 1;
-            fetchHotelsList(dispatch, page);
+            const page = 1, items = 10;
+            fetchHotelsList(dispatch, page, items);
         })
         .catch( (errors) => {
             console.log(errors)
